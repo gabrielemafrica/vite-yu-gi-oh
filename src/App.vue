@@ -4,11 +4,13 @@ import axios from 'axios';
 import { store } from '../src/store'
 import AppHeader from './components/AppHeader.vue'
 import CharactersList from './components/CharactersList.vue'
+import AppLoader from './components/AppLoader.vue'
 
 export default {
   components: {
     AppHeader,
-    CharactersList
+    CharactersList,
+    AppLoader
   },
   data() {
     return {
@@ -22,6 +24,7 @@ export default {
         // il risultato lo metto nell array di store
         .then(risultato => {
           store.charactersList = risultato.data.data;
+          store.loading = false;
         })
         // intercetto errori
         .catch(errore => {
@@ -36,6 +39,7 @@ export default {
 </script>
 
 <template>
+  <AppLoader v-if="store.loading" />
   <AppHeader message="Yu-Gi-Oh Api" />
   <CharactersList />
 </template>
