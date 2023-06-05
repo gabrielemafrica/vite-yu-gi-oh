@@ -1,6 +1,6 @@
 <script>
 export default {
-    name: CharactersList,
+    name: "CharactersList",
 }
 </script>
 <template>
