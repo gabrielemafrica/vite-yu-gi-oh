@@ -2,6 +2,7 @@
 // importo store nel componente lista
 import { store } from './../store';
 import SingleCharacter from './SingleCharacter.vue';
+
 export default {
     name: "CharactersList",
     components: {
@@ -14,6 +15,7 @@ export default {
     }
 }
 </script>
+
 <template>
     <section class="container pt-3 pb-3">
         <div class="counter">numero carte: {{ store.charactersList.length }}</div>
@@ -21,12 +23,13 @@ export default {
             <div class="colonna mt-3 text-center" v-for="character in store.charactersList" :key="character.id">
                 <!-- card -->
                 <SingleCharacter :cardObj="character" :cardImage="character.card_images[0].image_url"
-                    :cardName="character.name" :cardType="character.type" />
+                    :cardName="character.name" :cardType="character.archetype ? character.archetype : character.type" />
 
             </div>
         </div>
     </section>
 </template>
+
 <style scoped lang="scss">
 @use '../styles/partials/variables' as *;
 
