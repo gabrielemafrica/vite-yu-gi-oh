@@ -2,9 +2,11 @@
 // importo store nel componente lista
 import { store } from './../store';
 import SingleCharacter from './SingleCharacter.vue';
+import Contatore from './Contatore.vue';
 
 export default {
     name: "CharactersList",
+    name: "Contatore",
     components: {
         SingleCharacter
     },
@@ -18,6 +20,7 @@ export default {
 
 <template>
     <section class="container pt-3 pb-3">
+        <!-- <Contatore /> -->
         <div class="counter">numero carte: {{ store.charactersList.length }}</div>
         <div class="riga">
             <div class="colonna mt-3 text-center" v-for="character in store.charactersList" :key="character.id">

@@ -7,6 +7,7 @@ import CharactersList from './components/CharactersList.vue'
 import AppLoader from './components/AppLoader.vue'
 import AppSearch from './components/AppSearch.vue'
 
+
 export default {
   components: {
     AppHeader,
@@ -21,12 +22,22 @@ export default {
   },
   methods: {
     getCharacters() {
+      // variabile url
+      let searchURL = store.basicURL;
+
+      // compilo la stringa di ricerca
+      if (store.searchValue === 'all') {
+        searchURL += store.shortSearch;
+      }else {
+        searchURL += `?${store.searchData}=${store.searchValue}`;
+      }
       // chiamo axios
-      axios.get(store.apriURL)
+      axios.get(searchURL)
         // il risultato lo metto nell array di store
         .then(risultato => {
           store.charactersList = risultato.data.data;
           store.loading = false;
+          console.log(searchURL);
         })
         // intercetto errori
         .catch(errore => {
@@ -59,7 +70,7 @@ export default {
 <template>
   <AppLoader v-if="store.loading" />
   <AppHeader message="Yu-Gi-Oh Api" />
-  <AppSearch />
+  <AppSearch @mysearch="getCharacters" />
   <CharactersList />
 </template>
 

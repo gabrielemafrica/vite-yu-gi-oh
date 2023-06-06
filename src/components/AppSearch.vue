@@ -3,21 +3,30 @@ import { store } from "../store";
 
 export default {
     name: "AppSearch",
+    emit: ['mysearch'],
     data() {
         return {
             store
         }
+    },
+    methods: {
+        // funzione che emette mysearch
+        handleSearch() {
+            this.$emit('mysearch');
+        }
     }
-}
+};
 </script>
 
 <template>
-    <div>{{ store.searchValue }}</div>
+
 <div class="container">
-    <select name="languages" id="archetype" v-model="store.searchValue">
-        <option  disabled value="">All Archetypes</option>
-        <option :value="archetype.archetype_name" v-for="(archetype, index) in store.archetypeList" :key="index" v-on:change="$emit(mysearch)" >{{ archetype.archetype_name }}</option>
+<!-- metto @change per chiamare una funzione che farà emit -->
+    <select name="languages" id="archetype" @change="handleSearch" v-model="store.searchValue">
+        <option  value="all">All Archetypes</option>
+        <option :value="archetype.archetype_name" v-for="(archetype, index) in store.archetypeList" :key="index">{{ archetype.archetype_name }}</option>
     </select>
+
 
 </div>
 </template>
@@ -25,4 +34,3 @@ export default {
 <style scoped lang="scss">
     
 </style>
-
